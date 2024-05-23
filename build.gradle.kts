@@ -23,12 +23,13 @@ dependencies {
     compileOnly("org.jetbrains:annotations:24.0.1")
     compileOnly("org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:5.1.0")
-    implementation("com.crypticlib:CrypticLib:0.16.6")
+    implementation("com.crypticlib:common:0.17.7")
+    implementation("com.crypticlib:action:0.17.7")
 }
 
-group = "com.example"
+group = "pers.yufiria"
 version = "1.0.0"
-var mainClass = "${rootProject.group}.${rootProject.name.lowercase()}.Example"
+var mainClass = "pers.yufiria.playerInvMenu.PlayerInvMenu"
 var pluginVersion: String = version.toString() + "-" + SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 java.targetCompatibility = JavaVersion.VERSION_1_8
@@ -50,10 +51,11 @@ tasks {
         }
     }
     compileJava {
+        dependsOn(clean)
         options.encoding = "UTF-8"
     }
     shadowJar {
-        relocate("crypticlib", "${rootProject.group}.${rootProject.name.lowercase()}.crypticlib")
+        relocate("crypticlib", "pers.yufiria.playerInvMenu.crypticlib")
         archiveFileName.set("${rootProject.name}-${version}.jar")
     }
     assemble {

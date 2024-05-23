@@ -1,0 +1,35 @@
+items:
+  0:
+    material:
+  1:
+    material: minecraft:bedrock
+    name: hello
+    lore:
+      - 'lore'
+    model-data: 100
+    actions:
+      - command say hello1
+  2:
+    material: minecraft:bedrock
+    name: hello
+    lore:
+      - 'lore'
+    model-data: 100
+    actions:
+      - command say hello2
+  3:
+    material: minecraft:bedrock
+    name: hello
+    lore:
+      - 'lore'
+    model-data: 100
+    actions:
+      - command say hello3
+  4:
+    material: minecraft:bedrock
+    name: hello
+    lore:
+      - 'lore'
+    model-data: 100
+    actions:
+      - command say hello
