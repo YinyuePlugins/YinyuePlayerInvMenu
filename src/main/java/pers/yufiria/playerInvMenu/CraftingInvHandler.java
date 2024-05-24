@@ -1,5 +1,6 @@
 package pers.yufiria.playerInvMenu;
 
+import com.destroystokyo.paper.event.player.PlayerRecipeBookClickEvent;
 import crypticlib.listener.BukkitListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,10 +28,19 @@ public class CraftingInvHandler implements Listener {
         if (topInventory != event.getClickedInventory()) {
             return;
         }
-        event.setCancelled(true);
         int slot = event.getSlot();
         if (ItemUtil.CRAFTING_INV_ACTIONS.containsKey(slot)) {
+            event.setCancelled(true);
             ItemUtil.CRAFTING_INV_ACTIONS.get(slot).run((Player) event.getWhoClicked(), PlayerInvMenu.INSTANCE);
+        }
+    }
+
+    @EventHandler
+    public void onClickRecipeBook(PlayerRecipeBookClickEvent event) {
+        Player player = event.getPlayer();
+        InventoryType topInvType = player.getOpenInventory().getTopInventory().getType();
+        if (topInvType.equals(InventoryType.CRAFTING)) {
+            event.setCancelled(true);
         }
     }
 
