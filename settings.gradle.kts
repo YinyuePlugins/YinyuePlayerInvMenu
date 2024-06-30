@@ -1,1 +1,1 @@
-rootProject.name = "PlayerInvMenu"
+rootProject.name = "YinyuePlayerInvMenu"
