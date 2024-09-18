@@ -3,9 +3,11 @@ package pers.yufiria.playerInvMenu;
 import crypticlib.action.Action;
 import crypticlib.action.ActionCompiler;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class ItemUtil {
                     itemMeta.setCustomModelData(customModelData);
                     item.setItemMeta(itemMeta);
                 }
+                putSymbol(item);
                 CRAFTING_INV_ITEMS.put(slot, item);
 
             } catch (NumberFormatException ignored) {}
@@ -53,5 +56,18 @@ public class ItemUtil {
         }
     }
 
+    public static ItemStack putSymbol(ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(PlayerInvMenu.INSTANCE, "player_inv_menu_item"), PersistentDataType.BOOLEAN, true);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static boolean isPlayerInvMenuItem(ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta == null)
+            return false;
+        return itemMeta.getPersistentDataContainer().has(new NamespacedKey(PlayerInvMenu.INSTANCE, "player_inv_menu_item"));
+    }
 
 }

@@ -2,11 +2,17 @@ package pers.yufiria.playerInvMenu;
 
 import com.destroystokyo.paper.event.player.PlayerRecipeBookClickEvent;
 import crypticlib.listener.BukkitListener;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 @BukkitListener
 public class CraftingInvHandler implements Listener {
@@ -40,6 +46,19 @@ public class CraftingInvHandler implements Listener {
         Player player = event.getPlayer();
         InventoryType topInvType = player.getOpenInventory().getTopInventory().getType();
         if (topInvType.equals(InventoryType.CRAFTING)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        event.getDrops().removeIf(ItemUtil::isPlayerInvMenuItem);
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent event) {
+        Item entity = event.getEntity();
+        if (ItemUtil.isPlayerInvMenuItem(entity.getItemStack())) {
             event.setCancelled(true);
         }
     }
