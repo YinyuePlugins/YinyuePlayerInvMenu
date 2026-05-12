@@ -1,6 +1,7 @@
 package pers.yufiria.playerInvMenu;
 
 import com.destroystokyo.paper.event.player.PlayerRecipeBookClickEvent;
+import crypticlib.CrypticLib;
 import crypticlib.listener.BukkitListener;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -37,7 +38,9 @@ public class CraftingInvHandler implements Listener {
         int slot = event.getSlot();
         if (ItemUtil.CRAFTING_INV_ACTIONS.containsKey(slot)) {
             event.setCancelled(true);
-            ItemUtil.CRAFTING_INV_ACTIONS.get(slot).run((Player) event.getWhoClicked(), PlayerInvMenu.INSTANCE);
+            CrypticLib.platform().scheduler().runTask(PlayerInvMenu.INSTANCE, () -> {
+                ItemUtil.CRAFTING_INV_ACTIONS.get(slot).run((Player) event.getWhoClicked(), PlayerInvMenu.INSTANCE);
+            });
         }
     }
 
