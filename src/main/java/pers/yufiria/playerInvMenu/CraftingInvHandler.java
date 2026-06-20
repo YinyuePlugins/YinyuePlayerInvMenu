@@ -15,18 +15,6 @@ import pers.yufiria.playerInvMenu.util.PlayerUtil;
 public class CraftingInvHandler implements Listener {
 
     @EventHandler
-    public void onClose(InventoryCloseEvent event) {
-        Player player = (Player) event.getPlayer();
-        if (!PlayerUtil.isPlayerSurvival(player)) {
-            return;
-        }
-        Inventory topInventory = event.getView().getTopInventory();
-        if (topInventory.getType().equals(InventoryType.CRAFTING)) {
-            topInventory.clear();
-        }
-    }
-
-    @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (!PlayerUtil.isPlayerSurvival(player)) {
@@ -60,31 +48,5 @@ public class CraftingInvHandler implements Listener {
             event.setCancelled(true);
         }
     }
-
-//    @EventHandler
-//    public void onPlayerDeath(PlayerDeathEvent event) {
-//        event.getDrops().removeIf(ItemUtil::isPlayerInvMenuItem);
-//    }
-//
-//    @EventHandler
-//    public void onItemSpawn(ItemSpawnEvent event) {
-//        Item entity = event.getEntity();
-//        if (ItemUtil.isPlayerInvMenuItem(entity.getItemStack())) {
-//            event.setCancelled(true);
-//        }
-//    }
-
-    //存在问题，会影响玩家背包拖动物品
-//    @EventHandler
-//    public void onDrag(InventoryDragEvent event) {
-//        Inventory topInventory = event.getView().getTopInventory();
-//        if (!topInventory.getType().equals(InventoryType.CRAFTING)) {
-//            return;
-//        }
-//        if (topInventory != event.getInventory()) {
-//            return;
-//        }
-//        event.setCancelled(true);
-//    }
 
 }
