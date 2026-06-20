@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.inventory.Inventory;
 import pers.yufiria.playerInvMenu.util.ItemUtil;
 import pers.yufiria.playerInvMenu.util.PlayerUtil;
@@ -47,6 +48,14 @@ public class CraftingInvHandler implements Listener {
         if (topInvType.equals(InventoryType.CRAFTING)) {
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onChangeGameMode(PlayerGameModeChangeEvent event) {
+        Player player = event.getPlayer();
+        CrypticLib.platform().scheduler().runTask(PlayerInvMenu.INSTANCE, () -> {
+            PlayerInvMenu.INSTANCE.sendMenuItems(player);
+        });
     }
 
 }

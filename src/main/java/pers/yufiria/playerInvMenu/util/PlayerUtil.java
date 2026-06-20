@@ -6,10 +6,11 @@ import org.bukkit.entity.Player;
 public class PlayerUtil {
 
     public static boolean isPlayerSurvival(Player player) {
-        if (player.getGameMode().equals(GameMode.CREATIVE)) {
-            return false;
+        GameMode gameMode = player.getGameMode();
+        if (gameMode.equals(GameMode.SURVIVAL)) {
+            return true;
         }
-        return !player.getGameMode().equals(GameMode.SPECTATOR);
+        return gameMode.equals(GameMode.ADVENTURE);
     }
 
 }
