@@ -1,4 +1,4 @@
-package pers.yufiria.playerInvMenu;
+package pers.yufiria.playerInvMenu.util;
 
 import crypticlib.action.Action;
 import crypticlib.action.ActionCompiler;
@@ -8,6 +8,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import pers.yufiria.playerInvMenu.PlayerInvMenu;
+import pers.yufiria.playerInvMenu.PluginConfig;
 
 import java.util.List;
 import java.util.Map;

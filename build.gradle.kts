@@ -33,7 +33,7 @@ dependencies {
 }
 
 group = "pers.yufiria"
-version = "1.0.4"
+version = "1.0.5"
 var mainClass = "pers.yufiria.playerInvMenu.PlayerInvMenu"
 var pluginVersion: String = version.toString() + "-" + SimpleDateFormat("yyyyMMdd").format(System.currentTimeMillis())
 java.sourceCompatibility = JavaVersion.VERSION_17

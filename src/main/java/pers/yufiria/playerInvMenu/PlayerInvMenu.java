@@ -6,13 +6,11 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.protocol.item.ItemStack;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import crypticlib.BukkitPlugin;
-import crypticlib.CrypticLib;
-import crypticlib.scheduler.task.ITaskWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.scheduler.BukkitTask;
+import pers.yufiria.playerInvMenu.util.ItemUtil;
 
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class PlayerInvMenu extends BukkitPlugin {
     public boolean serverClosed = false;
     private PlayerInvMenuPacketListener packetListener;
     private PacketListenerCommon packetListenerCommon;
-    private ITaskWrapper updateTask;
 
     @Override
     public void enable() {
@@ -35,23 +32,6 @@ public class PlayerInvMenu extends BukkitPlugin {
 
         // 加载配置
         ItemUtil.reload();
-
-        // 定时任务：每 tick 刷新菜单物品（通过 packetevents 发包）
-        // 这样占位符能实时更新
-        updateTask = CrypticLib.platform().scheduler().runTaskTimer(this, () -> {
-            if (ItemUtil.CRAFTING_INV_ITEMS.isEmpty()) {
-                return;
-            }
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                if (!player.getOpenInventory().getTopInventory().getType().equals(InventoryType.CRAFTING)) {
-                    return;
-                }
-                if (serverClosed) {
-                    return;
-                }
-                sendMenuItems(player);
-            });
-        }, 0, 1L);
     }
 
     @Override
@@ -70,12 +50,6 @@ public class PlayerInvMenu extends BukkitPlugin {
             if (topInventory.getType().equals(InventoryType.CRAFTING)) {
                 topInventory.clear();
             }
-        }
-
-        // 取消定时任务
-        if (updateTask != null) {
-            updateTask.cancel();
-            updateTask = null;
         }
     }
 

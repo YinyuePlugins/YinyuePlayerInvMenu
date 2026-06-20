@@ -9,6 +9,7 @@ import crypticlib.chat.TextProcessor;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
+import pers.yufiria.playerInvMenu.util.ItemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class PlayerInvMenuPacketListener implements PacketListener {
             return;
         }
 
-        Player player = (Player) event.getPlayer();
+        Player player = event.getPlayer();
         if (player == null) {
             return;
         }
