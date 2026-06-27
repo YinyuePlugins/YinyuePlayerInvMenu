@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import pers.yufiria.playerInvMenu.util.ItemUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerInvMenu extends BukkitPlugin {
@@ -71,7 +72,7 @@ public class PlayerInvMenu extends BukkitPlugin {
         }
 
         // 构造 items 列表（slot 0-4 使用菜单物品，其余使用背包原始物品）
-        List<ItemStack> items = new java.util.ArrayList<>();
+        List<ItemStack> items = new ArrayList<>();
         for (int i = 0; i < topInventory.getSize(); i++) {
             if (i < 5 && ItemUtil.CRAFTING_INV_ITEMS.containsKey(i)) {
                 // 使用菜单物品（已处理占位符和颜色）

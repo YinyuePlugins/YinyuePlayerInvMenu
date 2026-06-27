@@ -52,7 +52,12 @@ public class CraftingInvHandler implements Listener {
 
     @EventHandler
     public void onChangeGameMode(PlayerGameModeChangeEvent event) {
+        // 切换到非生存/冒险模式时不发送菜单物品
         Player player = event.getPlayer();
+        if (!PlayerUtil.isSurvivalMode(event.getNewGameMode())) {
+            CrypticLib.platform().scheduler().runTask(PlayerInvMenu.INSTANCE, player::updateInventory);
+            return;
+        }
         CrypticLib.platform().scheduler().runTask(PlayerInvMenu.INSTANCE, () -> {
             PlayerInvMenu.INSTANCE.sendMenuItems(player);
         });

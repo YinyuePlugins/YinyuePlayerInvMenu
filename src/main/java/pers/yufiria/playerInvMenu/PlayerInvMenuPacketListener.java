@@ -10,6 +10,7 @@ import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import pers.yufiria.playerInvMenu.util.ItemUtil;
+import pers.yufiria.playerInvMenu.util.PlayerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,11 @@ public class PlayerInvMenuPacketListener implements PacketListener {
 
         Player player = event.getPlayer();
         if (player == null) {
+            return;
+        }
+
+        // 仅对生存/冒险模式启用菜单
+        if (!PlayerUtil.isPlayerSurvival(player)) {
             return;
         }
 
